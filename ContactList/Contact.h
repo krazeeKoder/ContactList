@@ -10,4 +10,9 @@
 
 @interface Contact : NSObject
 
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *email;
+
+
+
 @end

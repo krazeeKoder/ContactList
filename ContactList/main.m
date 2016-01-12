@@ -8,27 +8,39 @@
 
 #import <Foundation/Foundation.h>
 #import "InputCollector.h"
+#import "Contact.h"
+#import "ContactList.h"
 
 int main(int argc, const char * argv[]) {
-
     
-    NSString *menuString = @"What would you like to do next?\nnew - Create a new contact list\nlist - List all contacts\nquit - Exit Application";
-
+ContactList *contactList = [[ContactList alloc] init];
     
-    InputCollector *userInput = [[InputCollector alloc] init];
-    
-    NSString *userSelection = [userInput inputForPrompt:menuString];
-    
-    if ([userSelection isEqualToString:@"quit"]) {
-        return 0;
+    while (YES) {
+        
+        NSString *menuString = @"What would you like to do next?\nnew - Create a new contact list\nlist - List all contacts\nquit - Exit Application";
+        
+        
+        InputCollector *userInput = [[InputCollector alloc] init];
+        
+        NSString *userSelection = [userInput inputForPrompt:menuString];
+        
+        if ([userSelection isEqual:@"quit"]) {
+            return 0;
+        }
+        if ([userSelection isEqual:@"new"]) {
+            NSString *contactName = [userInput inputForPrompt:@"Enter a new contact name: "];
+            NSString *contactEmail = [userInput inputForPrompt:@"Enter contact email: "];
+            Contact *contact = [[Contact alloc] init];
+            
+            contact.name = contactName;
+            contact.email = contactEmail;
+            
+            [contactList addContact:contact];
+        }
+        if ([userSelection isEqualTo:@"list"]) {
+            [contactList printContactList];
+        }
     }
-    if ([userSelection isEqualToString:@"new"]) {
-        NSString *contactName = [userInput inputForPrompt:@"Enter a new contact name: "];
-        NSString *contactEmail = [userInput inputForPrompt:@"Enter contact email: "];
-    }
-    
-    NSLog(@"%@", userSelection);
-    
     
     return 0;
 }

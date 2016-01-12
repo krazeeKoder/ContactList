@@ -16,6 +16,7 @@
     char cUserInput[255];
     fgets(cUserInput,255, stdin);
     NSString *userInput = [NSString stringWithUTF8String:cUserInput];
+    userInput = [userInput stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     
     return userInput;
     
