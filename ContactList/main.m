@@ -17,7 +17,7 @@ ContactList *contactList = [[ContactList alloc] init];
     
     while (YES) {
         
-        NSString *menuString = @"What would you like to do next?\nnew - Create a new contact list\nlist - List all contacts\nquit - Exit Application";
+        NSString *menuString = @"What would you like to do next?\nnew - Create a new contact list\nlist - List all contacts\nshow - Show a contact based on ID\nquit - Exit Application";
         
         
         InputCollector *userInput = [[InputCollector alloc] init];
@@ -37,7 +37,25 @@ ContactList *contactList = [[ContactList alloc] init];
             
             [contactList addContact:contact];
         }
-        if ([userSelection isEqualTo:@"list"]) {
+        if ([userSelection isEqual:@"show"]) {
+
+            NSString *contactIDString = [userInput inputForPrompt:@"Enter contact ID: "];
+            NSCharacterSet *nonNumberSet = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
+            if ([contactIDString rangeOfCharacterFromSet:nonNumberSet].location != NSNotFound) {
+                NSLog(@"Input contains non number characters");
+                return 5;
+            }
+            NSInteger contactID = [contactIDString intValue];
+            if (contactID < 0 || contactID > [contactList.contactList count]) {
+                NSLog(@"Your number is outsider the scope of the list");
+            }
+            
+            Contact *contactFromID = [contactList.contactList objectAtIndex: contactID];
+            NSLog(@"Name: %@", contactFromID.name);
+            NSLog(@"Email: %@", contactFromID.email);
+            
+        }
+        if ([userSelection isEqual:@"list"]) {
             [contactList printContactList];
         }
     }
