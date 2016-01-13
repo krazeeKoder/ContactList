@@ -28,14 +28,23 @@ ContactList *contactList = [[ContactList alloc] init];
             return 0;
         }
         else if ([userSelection isEqual:@"new"]) {
-            NSString *contactName = [userInput inputForPrompt:@"Enter a new contact name: "];
             NSString *contactEmail = [userInput inputForPrompt:@"Enter contact email: "];
-            Contact *contact = [[Contact alloc] init];
+            bool notADuplicateEmail = [contactList checkForDuplicate:contactEmail];
             
-            contact.name = contactName;
-            contact.email = contactEmail;
-            
-            [contactList addContact:contact];
+            if (notADuplicateEmail) {
+     
+                NSString *contactName = [userInput inputForPrompt:@"Enter a new contact name: "];
+                Contact *contact = [[Contact alloc] init];
+                
+                contact.name = contactName;
+                contact.email = contactEmail;
+                
+                [contactList addContact:contact];
+                
+                }
+            else {
+                NSLog(@"You entered a duplicate email address");
+            }
         }
         else if ([userSelection isEqual:@"show"]) {
 

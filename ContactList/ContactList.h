@@ -19,5 +19,6 @@
 
 -(void)findContact:(NSString *)searchParameter;
 
+-(bool)checkForDuplicate:(NSString *)attemptedEmail;
 
 @end

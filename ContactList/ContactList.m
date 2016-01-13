@@ -51,4 +51,13 @@
     }
 }
 
+-(bool)checkForDuplicate:(NSString *)attemptedEmail{
+    for (Contact *contact in self.contactList) {
+        if ([contact.email isEqual:attemptedEmail]) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
 @end
