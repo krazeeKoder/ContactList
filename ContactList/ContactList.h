@@ -17,5 +17,7 @@
 
 -(void)printContactList;
 
+-(void)findContact:(NSString *)searchParameter;
+
 
 @end

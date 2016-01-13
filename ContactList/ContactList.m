@@ -30,4 +30,25 @@
     }
 }
 
+-(void)findContact:(NSString *)searchParameter {
+    
+    NSRange replaceRange = [searchParameter rangeOfString:@"find "];
+    BOOL found = NO;
+    if (replaceRange.location != NSNotFound){
+        NSString* truncatedString = [searchParameter stringByReplacingCharactersInRange:replaceRange withString:@""];
+        
+        for (Contact *contact in self.contactList) {
+            if ([contact.name containsString:truncatedString] || [contact.email containsString:truncatedString]) {
+                NSLog(@"Name of Contact: %@",contact.name);
+                NSLog(@"Email of Contact: %@",contact.email);
+                found = YES;
+            }
+        }
+        if (!found) {
+            NSLog(@"Contact not found");
+        }
+        
+    }
+}
+
 @end

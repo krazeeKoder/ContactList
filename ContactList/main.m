@@ -17,7 +17,7 @@ ContactList *contactList = [[ContactList alloc] init];
     
     while (YES) {
         
-        NSString *menuString = @"What would you like to do next?\nnew - Create a new contact list\nlist - List all contacts\nshow - Show a contact based on ID\nquit - Exit Application";
+        NSString *menuString = @"What would you like to do next?\nnew - Create a new contact list\nlist - List all contacts\nshow - Show a contact based on ID\nfind - Enter find and a search parameter to find contact\nquit - Exit Application";
         
         
         InputCollector *userInput = [[InputCollector alloc] init];
@@ -27,7 +27,7 @@ ContactList *contactList = [[ContactList alloc] init];
         if ([userSelection isEqual:@"quit"]) {
             return 0;
         }
-        if ([userSelection isEqual:@"new"]) {
+        else if ([userSelection isEqual:@"new"]) {
             NSString *contactName = [userInput inputForPrompt:@"Enter a new contact name: "];
             NSString *contactEmail = [userInput inputForPrompt:@"Enter contact email: "];
             Contact *contact = [[Contact alloc] init];
@@ -37,7 +37,7 @@ ContactList *contactList = [[ContactList alloc] init];
             
             [contactList addContact:contact];
         }
-        if ([userSelection isEqual:@"show"]) {
+        else if ([userSelection isEqual:@"show"]) {
 
             NSString *contactIDString = [userInput inputForPrompt:@"Enter contact ID: "];
             NSCharacterSet *nonNumberSet = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
@@ -55,8 +55,11 @@ ContactList *contactList = [[ContactList alloc] init];
             NSLog(@"Email: %@", contactFromID.email);
             
         }
-        if ([userSelection isEqual:@"list"]) {
+        else if ([userSelection isEqual:@"list"]) {
             [contactList printContactList];
+        }
+        else if([[userSelection substringToIndex:4] isEqual: @"find"]) {
+            [contactList findContact:userSelection];
         }
     }
     
